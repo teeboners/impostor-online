@@ -252,6 +252,9 @@ class AdminManager {
                 btnSubmit.innerText = "CREA MI CUENTA YA";
                 if (wrapperEmail) wrapperEmail.classList.remove('hidden');
             }
+            // MOBILE FIX: Reset scroll position when switching tabs
+            const modalContent = document.querySelector('.modal-epic-content');
+            if (modalContent) modalContent.scrollTop = 0;
         };
 
         const tabLoginBtn = document.getElementById('tab-login');
