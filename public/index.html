@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- PWA & Mobile Optimization Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Impostor">
+    <meta name="theme-color" content="#1b263b">
+    <link rel="apple-touch-icon" href="/assets/logopng.png">
+    <link rel="manifest" href="/manifest.json">
+    
+    <title>Impostor Online</title>
+    <link rel="stylesheet" href="/css/style.css?v=1.3.0">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <nav class="top-navbar">
+        <header class="main-header">
+            <div class="bg-decorations">
+                <div class="blur-blob blob-1"></div>
+                <div class="blur-blob blob-2"></div>
+            </div>
+            <div class="header-logo">
+                <span class="logo-text">IMPOSTOR <span class="highlight">ONLINE</span></span>
+            </div>
+            <div class="nav-links">
+                <!-- Placeholder for future nav links -->
+            </div>
+            <div class="auth-buttons" id="auth-buttons-container">
+                <button id="btn-login-open" class="btn-auth">Entrar</button>
+                <button class="btn-auth disabled" disabled>Registrar</button>
+            </div>
+            <div id="user-pills" class="hidden">
+                <div id="account-pill" class="account-pill">
+                    <img id="my-avatar-pill" src="/assets/avatars/cat.png" class="avatar-pill">
+                    <span id="my-name-pill">Usuario</span>
+                </div>
+            </div>
+        </header>
+    </nav>
+
+    <div class="container">
+        <div class="main-content">
+            <div id="lobby-view" class="view active">
+                <div class="lobby-logo-container">
+                    <img src="/assets/logopng.png" alt="PIXOGUESS" class="lobby-logo">
+                </div>
+
+                <div class="hero-grid">
+                    <!-- CARD 1: PROFILE -->
+                    <div class="lobby-card profile-card">
+                        <div class="avatar-wrapper">
+                            <div class="new-tag">5 NEW!</div>
+                            <img id="my-avatar" src="https://api.dicebear.com/7.x/adventurer/svg?seed=Felix"
+                                alt="Avatar" class="avatar-hero">
+                            <button id="btn-edit-profile" class="edit-pencil">
+                                <i class="fas fa-pencil-alt"></i>
+                            </button>
+                        </div>
+                        <div class="name-input-row">
+                            <input type="text" id="my-name-input" placeholder="Tu nombre" maxlength="15">
+                            <button id="btn-random-name" class="dice-button">
+                                <i class="fas fa-dice"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- CARD 2: QUICK GAME -->
+                    <button id="btn-quick-game" class="lobby-card game-card quick-game">
+                        <div class="game-card-content">
+                            <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=300"
+                                alt="" class="card-bg-img">
+                            <div class="card-overlay">
+                                <h3>Juego rápido</h3>
+                            </div>
+                        </div>
+                    </button>
+
+                    <!-- CARD 3: PRIVATE GAME -->
+                    <button id="btn-private-game" class="lobby-card game-card private-game">
+                        <div class="game-card-content">
+                            <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&q=80&w=300"
+                                alt="" class="card-bg-img">
+                            <div class="card-overlay">
+                                <h3>Juego privado</h3>
+                            </div>
+                        </div>
+                    </button>
+                </div>
+
+                <div class="lobby-footer-actions">
+                    <button id="btn-explore" class="action-link-btn">
+                        <i class="fas fa-globe"></i> Explorar salas
+                    </button>
+                    <button id="btn-how-to-scroll" class="action-link-btn">¿Cómo jugar?</button>
+                </div>
+
+                <div id="extra-sections" class="extra-sections">
+                    <section id="how-to-play" class="info-section">
+                        <h2>¿Cómo jugar?</h2>
+                        <div class="info-grid">
+                            <div class="info-card">
+                                <i class="fas fa-user-secret"></i>
+                                <h3>El Impostor</h3>
+                                <p>Recibe una palabra ligeramente diferente a los demás. Su objetivo es pasar
+                                    desapercibido y descubrir la palabra de los otros.</p>
+                            </div>
+                            <div class="info-card">
+                                <i class="fas fa-users"></i>
+                                <h3>El Grupo</h3>
+                                <p>Todos reciben la misma palabra. Deben dar pistas sutiles para identificar quien es el
+                                    impostor sin revelar la palabra.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="faq" class="info-section">
+                        <h2>Preguntas Frecuentes</h2>
+                        <div class="faq-item">
+                            <h3>¿Cuántos jugadores pueden jugar?</h3>
+                            <p>De 3 a 12 jugadores para una experiencia óptima.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>¿Es gratis?</h3>
+                            <p>¡Sí! Pixoguess es y será siempre gratuito para jugar con amigos.</p>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- ROOM VIEW (Remains functional but hidden) -->
+            <div id="room-view" class="view hidden">
+                <div class="card room-card">
+                    <div class="room-header">
+                        <h2>Sala: <span id="room-code-display">ABCD</span></h2>
+                    </div>
+                    <div class="room-layout">
+                        <div class="room-section room-profile">
+                            <div class="my-profile-room">
+                                <img id="my-avatar-room" src="" class="avatar-large">
+                                <div class="player-label-container">
+                                    <strong id="my-name-display">...</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="room-section room-controls">
+                            <div id="host-controls" class="hidden">
+                                <button id="btn-start-game" class="btn success full-width">Iniciar Partida</button>
+                                <button id="btn-add-bot" class="btn secondary small full-width">🤖 +Bot (Debug)</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="players-section">
+                        <h3>Jugadores (<span id="player-count">0</span>)</h3>
+                        <ul id="players-list" class="players-list"></ul>
+                    </div>
+                    <div class="room-footer">
+                        <button id="btn-leave" class="btn danger full-width">Abandonar Sala</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PROFILE EDIT MODAL -->
+            <div id="profile-modal" class="modal hidden">
+                <div class="card modal-card">
+                    <h2>Selecciona tu Avatar</h2>
+                    <div class="avatar-selection-grid" id="avatar-grid">
+                        <!-- 20 Avatars will be generated here -->
+                    </div>
+                    <div class="actions">
+                        <button id="btn-close-modal" class="btn secondary">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GAME VIEW (Table Centric Mockup) -->
+            <div id="game-view" class="view hidden">
+                <div class="game-container-mockup">
+                    <div class="game-top-row">
+                        <div class="table-area">
+                            <div id="game-bg-layer" class="game-bg-layer"></div>
+                            <div class="ingame-table">
+                                <img src="/assets/imagenes/ingame%20meza.png" alt="Mesa" class="table-bg">
+                                <div id="players-ring" class="players-ring">
+                                    <!-- Regular players seated around -->
+                                </div>
+                                <div id="active-player-center" class="active-player-center hidden">
+                                    <!-- Only the current turn player moves here -->
+                                    <div class="active-avatar-wrapper">
+                                        <div id="speech-bubble" class="speech-bubble hidden">
+                                            <span id="bubble-text">...</span>
+                                        </div>
+                                        <img id="active-avatar-img" src="" class="avatar-active">
+                                    </div>
+                                    <div class="active-player-info">
+                                        <strong id="active-player-name">...</strong>
+                                        <span class="status-badge">HABLANDO</span>
+                                    </div>
+                                </div>
+                                <div class="table-center-content">
+                                    <div id="main-display-text" class="main-display-text"></div>
+                                    <div class="table-timer-display">
+                                        ⏳ <span id="visible-timer">0</span>s
+                                    </div>
+                                    <div id="secret-word-container" class="secret-word-container">
+                                        <span id="secret-word-display" class="secret-word-value">...</span>
+                                    </div>
+                                    <div id="discussion-area" class="discussion-area-table hidden">
+                                        <div id="decision-buttons" class="decision-buttons-table hidden">
+                                            <button id="btn-decide-vote" class="btn-table btn-danger">VOTAR</button>
+                                            <button id="btn-decide-continue"
+                                                class="btn-table btn-success">CONTINUAR</button>
+                                        </div>
+                                        <div id="decision-live-feed" class="decision-feed-table hidden">
+                                            <div class="feed-column">
+                                                <h4>VOTAR</h4>
+                                                <ul id="list-vote"></ul>
+                                            </div>
+                                            <div class="feed-column">
+                                                <h4>SEGUIR</h4>
+                                                <ul id="list-continue"></ul>
+                                            </div>
+                                        </div>
+                                        <div id="vote-grid-container" class="vote-grid-table hidden"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="sidebar-ranking">
+                            <div class="ranking-header">RANKING</div>
+                            <ul id="sidebar-players-list" class="ranking-list"></ul>
+                        </div>
+                    </div>
+
+                    <div class="game-bottom-row">
+                        <div class="chat-area-mockup">
+                            <div id="clues-container" class="clues-container-mockup">
+                                <ul id="clues-list" class="clues-list-mockup"></ul>
+                            </div>
+                            <div class="chat-input-row-mockup">
+                                <div id="clue-input-area" class="input-area-mockup hidden">
+                                    <input type="text" id="input-clue" placeholder="Escribe tu pista..." maxlength="20">
+                                    <button id="btn-submit-clue" class="btn-send">ENVIAR</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div id="results-view" class="view hidden">
+            <div class="card">
+                <h2 id="winner-title">...</h2>
+                <p id="result-message">...</p>
+                <div class="result-details">
+                    <p>El Impostor era: <strong id="impostor-reveal">...</strong></p>
+                    <p>La palabra era: <strong id="word-reveal">...</strong></p>
+                </div>
+                <button id="btn-lobby-return" class="btn primary full-width">Volver al Lobby</button>
+            </div>
+        </div>
+
+        <!-- NOTIFICATION SYSTEM -->
+        <div id="notification-container" class="notification-container"></div>
+
+    </div> <!-- End main-content -->
+    </div> <!-- End container -->
+
+    <!-- EPIC LOGIN MODAL -->
+    <div id="login-modal" class="modal-overlay hidden modal-epic-bg">
+        <button id="btn-login-close" class="btn-close-epic"><i class="fas fa-times"></i></button>
+        <div class="modal-epic-content">
+            <h1 class="epic-title">¡Hola!</h1>
+            <p id="epic-subtitle" class="epic-subtitle">Inicia sesión en tu cuenta</p>
+
+            <div class="social-login-group">
+                <button class="btn-social btn-google" onclick="showNotification('Google Login en desarrollo', 'warning')">
+                    <i class="fab fa-google"></i> INICIA SESIÓN CON GOOGLE
+                </button>
+                <button class="btn-social btn-apple" onclick="showNotification('Apple Login en desarrollo', 'warning')">
+                    <i class="fab fa-apple"></i> INICIA SESIÓN CON APPLE
+                </button>
+            </div>
+
+            <div class="auth-tabs-epic">
+                <button id="tab-login" class="tab-btn active">Iniciar sesión</button>
+                <button id="tab-register" class="tab-btn">Regístrate</button>
+            </div>
+
+            <div class="epic-form">
+                <div class="epic-input-wrapper hidden" id="wrapper-email">
+                    <i class="fas fa-envelope epic-icon"></i>
+                    <input type="email" id="login-email" placeholder="Escribe tu correo electrónico...">
+                </div>
+                <div class="epic-input-wrapper">
+                    <i class="fas fa-user epic-icon"></i>
+                    <input type="text" id="login-user" placeholder="Usuario o Correo electrónico...">
+                </div>
+                <div class="epic-input-wrapper">
+                    <i class="fas fa-asterisk epic-icon"></i>
+                    <input type="password" id="login-pass" placeholder="Escribe tu contraseña...">
+                    <i class="fas fa-eye-slash epic-icon-right"></i>
+                </div>
+
+                <button id="btn-login-submit" class="btn-epic-submit">ENTRAR A JUGAR</button>
+            </div>
+
+            <p class="epic-terms">Al crear una cuenta, aceptas los <a href="#">Términos de servicio</a> y la <a href="#">Política de privacidad</a>.</p>
+        </div>
+    </div>
+
+    <!-- PRIVATE ROOM MODAL -->
+    <div id="private-modal" class="modal-overlay hidden modal-epic-bg">
+        <button id="btn-private-close" class="btn-close-epic"><i class="fas fa-times"></i></button>
+        <div class="modal-epic-content">
+            <h2 class="epic-title" style="font-size: 2.5rem;">SALA PRIVADA</h2>
+            <p class="epic-subtitle">Ingresa el código de 6 letras de tu amigo</p>
+            <div class="epic-form">
+                <div class="epic-input-wrapper">
+                    <i class="fas fa-key epic-icon"></i>
+                    <input type="text" id="private-code-input" placeholder="Ej: ABCDEF" maxlength="6" style="text-transform: uppercase;">
+                </div>
+                <button id="btn-private-join" class="btn-epic-submit">UNIRSE A SALA</button>
+            </div>
+            
+            <div class="auth-divider">
+                <span></span>
+                <p>¿No tienes código?</p>
+                <span></span>
+            </div>
+            
+            <button id="btn-private-create" class="btn-epic-submit" style="background:#4da1ff; color:#1a365d; border-bottom-color:#2b6ba8;">
+                CREAR MI PROPIA SALA
+            </button>
+        </div>
+    </div>
+
+    <style>
+        .dashboard-header { position: relative; }
+        .dashboard-stats { display: flex; justify-content: space-around; padding: 15px; background: rgba(0,0,0,0.2); border-radius: 8px; margin: 15px 0; }
+        .stat-item { text-align: center; }
+        .stat-val { font-size: 1.8rem; font-weight: 900; }
+        .stat-lbl { font-size: 0.8rem; font-weight: 700; opacity: 0.7; text-transform: uppercase; }
+    </style>
+    <!-- ACCOUNT DASHBOARD -->
+    <div id="account-dashboard" class="dashboard-overlay hidden">
+        <div class="dashboard-content glass-card" style="min-width: 350px; position: relative;">
+            <button id="btn-close-dash" class="btn-close-epic" style="top: 15px; right: 15px; position: absolute;"><i class="fas fa-times"></i></button>
+            <div class="dashboard-header" style="text-align: center; margin-bottom: 20px;">
+                <img id="dash-avatar" src="assets/avatars/cat.png" class="dash-avatar" style="border: 4px solid #4da1ff; margin: 0 auto;">
+                <h3 id="dash-name" style="font-size: 2rem; font-style: italic; font-weight: 900; margin: 10px 0 0 0;">Administrador</h3>
+                <p id="dash-role" style="color: #4cd964; font-weight: 800; text-transform: uppercase;">Jugador Oficial</p>
+            </div>
+            
+            <div class="dashboard-stats hidden" id="dashboard-stats-container">
+                <div class="stat-item">
+                    <div class="stat-val" style="color: #4da1ff;" id="dash-points">0</div>
+                    <div class="stat-lbl">Puntos</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-val" style="color: #ffd11a;" id="dash-games">0</div>
+                    <div class="stat-lbl">Partidas</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-val" style="color: #4cd964;" id="dash-wins">0</div>
+                    <div class="stat-lbl">Victorias</div>
+                </div>
+            </div>
+            
+            <div class="dashboard-body">
+                <div class="user-tools" style="display: flex; flex-direction: column; gap: 12px; width: 100%;">
+                    <button id="btn-toggle-stats" class="btn-epic-submit" style="background:#f39c12; color:#fff; border-bottom-color:#d68910; margin-top:0; padding:15px; font-size:1.1rem;">
+                        <i class="fas fa-chart-bar"></i> MIS ESTADÍSTICAS
+                    </button>
+                    <button id="btn-edit-profile-dash" class="btn-epic-submit" style="background:#3498db; color:#fff; border-bottom-color:#2980b9; margin-top:0; padding:15px; font-size:1.1rem;">
+                        <i class="fas fa-user-edit"></i> EDITAR PERFIL
+                    </button>
+                    <button id="btn-logout" class="btn-epic-submit" style="background:#e74c3c; color:#fff; border-bottom-color:#c0392b; margin-top:0; padding:15px; font-size:1.1rem;">
+                        <i class="fas fa-sign-out-alt"></i> CERRAR SESIÓN
+                    </button>
+                </div>
+                
+                <div id="admin-only-tools" class="hidden" style="margin-top: 25px; border-top: 2px solid rgba(255,255,255,0.1); padding-top: 20px;">
+                    <h4 style="color: rgba(255,255,255,0.7); text-align: center; font-style: italic; font-weight: 800; margin-bottom: 12px;">HERRAMIENTAS MASTER</h4>
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <button id="btn-open-designer" class="btn-epic-submit" style="background:#9b59b6; color:white; border-bottom-color:#8e44ad; margin-top:0; padding:12px; font-size: 1rem;">
+                            <i class="fas fa-magic"></i> DESIGNER ADMIN
+                        </button>
+                        <button id="btn-server-stats" class="btn-epic-submit" style="background:#34495e; color:white; border-bottom-color:#2c3e50; margin-top:0; padding:12px; font-size: 1rem;">
+                            <i class="fas fa-server"></i> ESTADO DEL SERVIDOR
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAUSE OVERLAY ... -->
+    <div id="pause-overlay" class="pause-overlay hidden">
+        <div class="pause-content">
+            <i class="fas fa-pause"></i>
+            <h2>PARTIDA PAUSADA</h2>
+            <p>Esperando al administrador...</p>
+        </div>
+    </div>
+
+    <!-- ADMIN PANEL (Global Sidebar) -->
+    <div id="admin-panel" class="admin-panel hidden glass-card">
+        <div class="admin-header">
+            <h3><i class="fas fa-tools"></i> DESIGNER LIVE</h3>
+            <button id="btn-close-admin" class="btn-icon">✕</button>
+        </div>
+        <div class="admin-sections">
+            <div class="admin-sec">
+                <h4>ESTILO VISUAL</h4>
+                <label>Fondo Mesa (PC)</label>
+                <input type="text" id="admin-bg-url" placeholder="URL PC...">
+
+                <label>Fondo Mesa (Móvil Vertical)</label>
+                <input type="text" id="admin-bg-mobile" placeholder="URL Vertical...">
+
+                <label>Zoom Table (<span id="val-zoom">1.0</span>x)</label>
+                <input type="range" id="admin-zoom" min="0.5" max="3" step="0.1" value="1">
+
+                <label>Posición X (<span id="val-posx">50</span>%)</label>
+                <input type="range" id="admin-posx" min="0" max="100" step="1" value="50">
+
+                <label>Posición Y (<span id="val-posy">50</span>%)</label>
+                <input type="range" id="admin-posy" min="0" max="100" step="1" value="50">
+
+                <label>Tamaño Player Spots (<span id="val-player-size">180</span>px)</label>
+                <input type="range" id="admin-player-size" min="120" max="280" step="10" value="180">
+
+                <label>Tamaño Ranking Sidebar (<span id="val-ranking-size">340</span>px)</label>
+                <input type="range" id="admin-ranking-size" min="250" max="500" step="10" value="340">
+
+                <label>Fondo Lobby</label>
+                <input type="text" id="admin-lobby-bg" placeholder="URL fondo lobby...">
+
+                <label>Fondo General (Body)</label>
+                <input type="text" id="admin-body-bg" placeholder="URL fondo general...">
+            </div>
+
+            <div class="admin-sec">
+                <h4>CONTROLES DE SALA</h4>
+                <div class="admin-btn-grid">
+                    <button id="btn-admin-pause" class="btn-admin">Pausar</button>
+                    <button id="btn-admin-skip" class="btn-admin">Saltar</button>
+                    <button id="btn-admin-reset" class="btn-admin danger">Reiniciar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="main-footer">
+        <div class="social-links">
+            <a href="#"><i class="fab fa-discord"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
+        </div>
+        <p>&copy; 2026 PIXOGUESS - Todos los derechos reservados</p>
+    </footer>
+
+    <div id="toast" class="toast hidden"></div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/client.js?v=table_seating_v7"></script>
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(reg => console.log('SW registered:', reg.scope))
+                    .catch(err => console.log('SW registration failed:', err));
+            });
+        }
+    </script>
+</body>
+
+</html>

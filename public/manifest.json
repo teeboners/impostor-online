@@ -1,0 +1,23 @@
+{
+  "name": "Impostor Online",
+  "short_name": "Impostor",
+  "description": "Juego de deducción social online para amigos",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0d1b2a",
+  "theme_color": "#1b263b",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/assets/logopng.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/logopng.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

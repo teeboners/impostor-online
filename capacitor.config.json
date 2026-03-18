@@ -1,0 +1,6 @@
+{
+  "appId": "com.pixoguess.impostor",
+  "appName": "Impostor Online",
+  "webDir": "public",
+  "bundledWebRuntime": false
+}

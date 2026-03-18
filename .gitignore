@@ -1,0 +1,16 @@
+node_modules
+# Keep environment variables out of version control
+.env
+
+/src/generated/prisma
+
+# SQLite Local DB
+dev.db
+dev.db-journal
+
+# Capacitor Native Projects
+android/
+ios/
+
+# Deployment scripts (optional but good to have tracked, so we don't ignore it)
+# .npm/

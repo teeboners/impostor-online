@@ -1,0 +1,35 @@
+/* Existing Styles */
+:root {
+    --bg-color: #1a1a2e;
+    --card-bg: #16213e;
+    --primary: #0f3460;
+    --accent: #e94560;
+    --text: #ffffff;
+    --secondary-text: #b0b0b0;
+    --impostor-color: #ff4757;
+    --crew-color: #2ed573;
+    --online-color: #2ed573;
+    --offline-color: #555;
+}
+
+/* ... Keep existing but appending new classes for status */
+
+/* Update: Added to style.css */
+.status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.online {
+    background-color: var(--online-color);
+    box-shadow: 0 0 5px var(--online-color);
+}
+
+.offline {
+    background-color: var(--offline-color);
+    border: 1px solid #777;
+}
+
+/* ... existing styles ... */

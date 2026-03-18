@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  impostor-game:
+    build: .
+    container_name: impostor_game_app
+    restart: unless-stopped
+    ports:
+      - "4000:3000" # Mapea puerto 4000 de tu VPS al 3000 del contenedor
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - JWT_SECRET=cambiar_esta_clave_en_produccion_por_seguridad_123
+      # LA MAGIA DE PRISMA: Aquí sobrescribimos la conexión para que use Postgres en lugar de SQLite
+      - DATABASE_URL=postgresql://juego_user:juego_pass@impostor_db:5432/impostor_db?schema=public
+    depends_on:
+      impostor_db:
+        condition: service_healthy
+
+  impostor_db:
+    image: postgres:15-alpine
+    container_name: impostor_game_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: juego_user
+      POSTGRES_PASSWORD: juego_pass
+      POSTGRES_DB: impostor_db
+    volumes:
+      - impostor_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U juego_user -d impostor_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  impostor_pgdata:
