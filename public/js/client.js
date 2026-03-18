@@ -188,7 +188,7 @@ class AdminManager {
                 const e = document.getElementById('login-email') ? document.getElementById('login-email').value : '';
                 const isRegister = document.getElementById('btn-login-submit').innerText === 'CREA MI CUENTA YA';
 
-                const endpoint = isRegister ? '/api/auth/register' : '/api/auth/login';
+                const endpoint = SERVER_URL + (isRegister ? '/api/auth/register' : '/api/auth/login');
                 
                 const payload = { username: u, password: p };
                 if (isRegister) payload.email = e;
@@ -672,7 +672,7 @@ document.addEventListener('DOMContentLoaded', () => {
     new AdminManager();
     // Check Session on Load
     if (myToken) {
-        fetch('/api/auth/me', {
+        fetch(SERVER_URL + '/api/auth/me', {
             headers: { 'Authorization': 'Bearer ' + myToken }
         }).then(res => res.json()).then(data => {
             if (data.user) {
