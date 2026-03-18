@@ -5,10 +5,9 @@ generator client {
   provider = "prisma-client-js"
 }
 
-// Prisma 7+: El provider principal será Postgres para tener tipado robusto.
-// Localmente usaremos la URL a Postgres o un SQLite temporal.
+// Prisma 7+: El provider principal será Postgres para Producción.
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
