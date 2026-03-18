@@ -1,10 +1,8 @@
-console.log("CLIENT.JS LOADED [FINAL-GAME-STABLE-V5]");
-
 // -- CONEXIÓN CON SERVIDOR CENTRAL --
 // Si corremos en una App Nativa de Capacitor (http://localhost o file:// pero sin puerto explícito de dev)
 // necesitamos conectarnos explícitamente a la IP/Dominio de la VPS. ¡CAMBIAR ESTA URL LUEGO A LA IP DE VPS REAL!
 const isNativeApp = (window.location.protocol === 'file:' || window.location.hostname === 'localhost') && !window.location.port;
-const SERVER_URL = isNativeApp ? 'https://tuvps-dominio-o-ip.com' : ''; 
+const SERVER_URL = isNativeApp ? 'http://130.94.104.173:4000' : ''; 
 
 const socket = io(SERVER_URL || undefined, {
     transports: ['websocket', 'polling'],
