@@ -11,10 +11,10 @@ echo "1. Obtendiendo el último código desde GitHub (main)..."
 git pull origin main
 
 echo "2. Bajando contenedores anteriores (limpiando)..."
-docker-compose down
+docker compose down
 
 echo "3. Reconstruyendo imagen Node y levantando BD..."
-docker-compose up --build -d
+docker compose up --build -d
 
 echo "4. Esperando 5 segundos para que PostgreSQL despierte internamente..."
 sleep 5
